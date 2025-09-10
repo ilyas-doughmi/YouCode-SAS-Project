@@ -17,6 +17,7 @@ typedef struct
 
 Player players[500];
 int countPlayers = 0;
+bool setuped = false;
 
 void addPlayer();
 void showPlayers();
@@ -41,9 +42,15 @@ void averageage();
 void biggerbuts();
 void lowertobigger();
 void showPlayersWithMoreGoals(); 
+void mockdata();
 
 int main()
 {
+
+    if(setuped == false){
+        mockdata();
+        setuped = true;
+    }
     int choix;
     do
     {
@@ -726,4 +733,36 @@ void showPlayersWithMoreGoals()
     printf("=======================================\n\n");
     system("pause");
     system("cls");
+}
+
+
+
+void mockdata() {
+    srand(time(NULL));
+    char *firstnames[] = {"Mustapha", "Ahmed", "Abdelmajid", "Salaheddine", "Badou",
+                          "Noureddine", "Youssef", "Hakim", "Achraf", "Walid"};
+    char *lastnames[]  = {"Hajji", "Faras", "Dolmy", "Bassir", "Zaki",
+                          "Naybet", "En-Nesyri", "Ziyech", "Hakimi", "Regragui"};
+    char *postes[]     = {"Midfielder", "Forward", "Midfielder", "Forward", "Goalkeeper",
+                          "Defender", "Forward", "Midfielder", "Defender", "Defender"};
+    int ages[]         = {52, 76, 66, 51, 64, 54, 27, 31, 25, 49};  
+    int shirts[]       = {8, 9, 10, 7, 1, 5, 9, 7, 2, 3};
+    int buts[]         = {50, 100, 30, 70, 0, 15, 40, 25, 10, 5};
+
+    for (int i = 0; i < 10; i++) {
+        strcpy(players[countPlayers].firstname, firstnames[i]);
+        strcpy(players[countPlayers].lastname, lastnames[i]);
+        strcpy(players[countPlayers].poste, postes[i]);
+        players[countPlayers].age = ages[i];
+        players[countPlayers].numeroMaillot = shirts[i];
+        players[countPlayers].buts = buts[i];
+
+        int random;
+        do {
+            random = rand() % 99999 + 10000;  
+        } while (checkrandom(random) != 0);
+
+        players[countPlayers].id = random;
+        countPlayers++;
+    }
 }
