@@ -22,6 +22,7 @@ void addmorePlayers();
 void showPlayersMenu();
 void showpAlphabete();
 void triwithage();
+void triwithposte();
 
 void triwithname();
 
@@ -45,6 +46,8 @@ int main() {
     return 0;
 }
 void addPlayerMainMenu(){
+    system("cls");
+    printf("=========== ADDING PLAYER ==============\n");
     int choix;
     do{
     printf("1.Add 1 player\n");
@@ -109,14 +112,15 @@ void showPlayersMenu(){
         printf("1.in Alphabete order\n");
         printf("2.in Players AGE\n");
         printf("3.Show Players with Poste\n");
+        printf("4.Back to Main Menu\n");
         printf("Choose : ");
         scanf("%d",&choix);
 
         switch(choix){
             case 1:triwithname();break;
             case 2:triwithage();break;
-            case 4:showPlayers();break;
-            case 5:main();break;
+            case 3:triwithposte();break;
+            case 4:main();break;
             default:printf("invalid Choice\n");
         }
     }while(choix != 0);
@@ -221,4 +225,23 @@ void triwithname(){
     }
 
     showPlayers();  
+}
+
+void triwithposte(){
+    if(countPlayers == 0){
+        printf("No Player\n");
+        return;
+    }
+
+        for(int i = 0 ; i < countPlayers-1 ; i++){
+        for(int j = i + 1; j < countPlayers ; j++){
+            if(strcmp(players[i].poste, players[j].poste) > 0){
+                Player temp = players[i];   
+                players[i] = players[j];
+                players[j] = temp;
+            }
+        }
+    }
+
+    showPlayers();
 }
