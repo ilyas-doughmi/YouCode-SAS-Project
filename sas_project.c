@@ -19,6 +19,11 @@ void addPlayer();
 void showPlayers();
 void addPlayerMainMenu();
 void addmorePlayers();
+void showPlayersMenu();
+void showpAlphabete();
+void triwithage();
+
+void triwithname();
 
 int main() {
     int choix;
@@ -31,8 +36,8 @@ int main() {
         scanf("%d", &choix);
 
         switch (choix) {
-            case 1: addPlayerMainMenu(); break;
-            case 2: showPlayers(); break;
+            case 1: addPlayerMainMenu();break;
+            case 2: showPlayersMenu(); break;
             case 0: printf("Bye!\n");return 0; 
             default: printf("Invalid Choice!\n"); break;
         }
@@ -96,7 +101,28 @@ void addPlayer() {
     main();
 }
 
+void showPlayersMenu(){
+    int choix;
+
+    do{
+        printf("========== SHOW PLAYERS ============\n");
+        printf("1.in Alphabete order\n");
+        printf("2.in Players AGE\n");
+        printf("3.Show Players with Poste\n");
+        printf("Choose : ");
+        scanf("%d",&choix);
+
+        switch(choix){
+            case 1:triwithname();break;
+            case 2:triwithage();break;
+            case 4:showPlayers();break;
+            case 5:main();break;
+            default:printf("invalid Choice\n");
+        }
+    }while(choix != 0);
+}
 void showPlayers() {
+    
     if (countPlayers == 0) {
         printf("No players added yet!\n");
         return;
@@ -156,4 +182,43 @@ void addmorePlayers(){
     system("cls");
     }
     main();
+}
+
+void triwithage(){
+    if(countPlayers == 0){
+        printf("No Player\n");
+        return;
+    }
+
+    for(int i = 0 ; i < countPlayers-1 ; i++){
+        for(int j = i + 1; j < countPlayers ; j++){
+            if(players[i].age > players[j].age){
+                Player temp = players[i];   
+                players[i] = players[j];
+                players[j] = temp;
+            }
+        }
+    }
+
+    showPlayers();  
+}
+
+
+void triwithname(){
+    if(countPlayers == 0){
+        printf("No Player\n");
+        return;
+    }
+
+    for(int i = 0 ; i < countPlayers-1 ; i++){
+        for(int j = i + 1; j < countPlayers ; j++){
+            if(strcmp(players[i].lastname, players[j].lastname) > 0){
+                Player temp = players[i];   
+                players[i] = players[j];
+                players[j] = temp;
+            }
+        }
+    }
+
+    showPlayers();  
 }
