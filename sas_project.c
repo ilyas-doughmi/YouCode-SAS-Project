@@ -27,11 +27,12 @@ void triwithage();
 void triwithposte();
 void search();
 void searchwithlastname();
-
 void searchwithid();
-
 void triwithname();
-
+void modifie(int i);
+void modfieposte(int i);
+void modifieage(int i);
+void modifiebuts(int i );
 int main()
 {
     int choix;
@@ -140,7 +141,14 @@ void addPlayer()
 
 void showPlayersMenu()
 {
+
+    if (countPlayers == 0)
+    {
+        printf("No players added yet!\n");
+        return;
+    }
     int choix;
+
     do
     {
         printf("========== SHOW PLAYERS ============\n");
@@ -340,7 +348,7 @@ void searchwithid()
     printf("Give me ID: ");
     scanf(" %d", &idsearch);
     bool found = false;
-
+    int choix;
     for (int i = 0; i < countPlayers; i++)
     {
         if (idsearch == players[i].id)
@@ -349,6 +357,25 @@ void searchwithid()
             printf("ID: %d | %s %s | Age: %d | Shirt: %d | Poste: %s | Goals: %d\n",
                    players[i].id, players[i].firstname, players[i].lastname,
                    players[i].age, players[i].numeroMaillot, players[i].poste, players[i].buts);
+
+            do
+            {
+                printf("1.Edit Player\n2. Back To MainMenu\nChoose: ");
+                scanf("%d", &choix);
+
+                switch (choix)
+                {
+                case 1:
+                    modifie(i);
+                    break;
+                case 2:
+                    main();
+                    break;
+                default:
+                    printf("Invalid Choice\n");
+                    break;
+                }
+            } while (choix != 0);
             found = true;
         }
     }
@@ -362,6 +389,7 @@ void searchwithid()
 void searchwithlastname()
 {
     int idsearch;
+    int choix;
     bool found = false;
     if (countPlayers == 0)
     {
@@ -380,11 +408,104 @@ void searchwithlastname()
             printf("ID: %d | %s %s | Age: %d | Shirt: %d | Poste: %s | Goals: %d\n",
                    players[i].id, players[i].firstname, players[i].lastname,
                    players[i].age, players[i].numeroMaillot, players[i].poste, players[i].buts);
+
+            do
+            {
+                printf("1.Edit Player\n2. Back To MainMenu\nChoose: ");
+                scanf("%d", &choix);
+
+                switch (choix)
+                {
+                case 1:
+                    modifie(i);
+                    break;
+                case 2:
+                    main();
+                    break;
+                default:
+                    printf("Invalid Choice\n");
+                    break;
+                }
+            } while (choix != 0);
             found = true;
+            break;
         }
     }
     if (!found)
     {
         printf("Not Found\n");
     }
+}
+
+void modifie(int i)
+{
+    system("cls");
+    printf("===== EDIT %s %s DATA =========\n", players[i].firstname, players[i].lastname);
+    int choix;
+    getchar();
+    do
+    {
+        printf("1.Edit Player Poste\n2. Edit Age\n3. Edit Buts\n4.Go Back to MainMenu\nChoose : ");
+        scanf("%d", &choix);
+
+        switch (choix)
+        {
+        case 1:
+            modfieposte(i);
+            break;
+        case 2:
+            modifieage(i);
+            break;
+        case 3:
+            modifiebuts(i);
+            break;
+        case 4:
+            main();
+            break;
+
+        default:
+            printf("Invalide Choice\n");
+            break;
+        }
+    } while (choix != 0);
+}
+
+void modfieposte(int i)
+{
+    system("cls");
+    char newposte[500];
+    printf("===== EDIT %s %s POSTE =========\n", players[i].firstname, players[i].lastname);
+    printf("Enter new Poste for %s : ", players[i].lastname);
+    scanf("%s", &newposte);
+    strcpy(players[i].poste, newposte);
+
+    printf("Player Poste Updated Successfully....\n");
+    printf("New Poste is : %s\n", players[i].poste);
+}
+
+void modifieage(int i)
+{
+    system("cls");
+
+    int newage;
+    printf("===== EDIT %s %s AGE =========\n", players[i].firstname, players[i].lastname);
+    printf("Enter new age for %s : ", players[i].lastname);
+    scanf("%d", &newage);
+    players[i].age = newage;
+
+    printf("Player Poste Updated Successfully....\n");
+    printf("New Poste is : %d\n", players[i].age);
+}
+
+void modifiebuts(int i ){
+    system("cls");
+
+    int newbuts;
+    printf("===== EDIT %s %s AGE =========\n", players[i].firstname, players[i].lastname);
+    printf("Enter new buts for %s : ", players[i].lastname);
+    scanf("%d", &newbuts);
+    players[i].buts = newbuts;
+
+    printf("Player Poste Updated Successfully....\n");
+    printf("New Poste is : %d\n", players[i].age);
 }
