@@ -3,6 +3,7 @@
 #include <string.h>
 #include <stdbool.h>
 #include <time.h>
+
 typedef struct
 {
     int id;
@@ -34,7 +35,9 @@ void modfieposte(int i);
 void modifieage(int i);
 void modifiebuts(int i);
 int checkrandom(int random);
-
+void delete(int i);
+void statistique();
+void totalmembers();
 int main()
 {
     int choix;
@@ -46,6 +49,7 @@ int main()
         printf("3. Search Player\n");
         printf("4. Edit Player\n");
         printf("5. Delete Player\n");
+        printf("6.Statistique\n");
         printf("0. Quit\n");
         printf("Choose: ");
         scanf("%d", &choix);
@@ -66,6 +70,9 @@ int main()
             break;
         case 5:
             search(3);
+            break;
+        case 6:
+            statistique();
             break;
         case 0:
             printf("Bye!\n");
@@ -341,6 +348,12 @@ void triwithposte()
 
 void search(int number)
 {
+    if (countPlayers == 0)
+    {
+        printf("No Player\n");
+        return;
+    }
+
     int choix;
     printf("1. Search with ID\n");
     printf("2. Search with lastname\n");
@@ -481,6 +494,29 @@ void searchwithlastname(int number)
                     }
                 } while (choix != 0);
             }
+            if (number == 3)
+            {
+                do
+                {
+                    printf("Do you want to delete this player : \n");
+                    printf("1. DELETE\n");
+                    printf("2. RETURN TO MAIN MENU\n");
+                    scanf("%d", &choix);
+
+                    switch (choix)
+                    {
+                    case 1:
+                        delete(i);
+                        break;
+                    case 2:
+                        main();
+                        break;
+                    default:
+                        printf("invalid Choice\n");
+                        break;
+                    }
+                } while (choix != 0);
+            }
 
             found = true;
             break;
@@ -585,7 +621,49 @@ int checkrandom(int random)
 
 void delete(int i)
 {
-    for(int i = 0 ; i < countPlayers ; i++){
-        
+    for (int i = i; i < countPlayers; i++)
+    {
+        players[i] = players[i + 1];
     }
+
+    countPlayers--;
+
+    printf("Deleted Successfully\n");
+
+    main();
+}
+
+
+void statistique(){
+
+    int choix;
+
+    do{
+        printf("1.Total Team Members\n2.Show Average Age\n3.Buts More than\n4.Best Player in Buts\n5.From Lower Age to High Age\n0.Back To Main Menu\nChoose: ");
+        scanf("%d",&choix);
+        
+        switch(choix){
+            case 1:
+            totalmembers();
+            break;
+            case 2:
+            averageage();
+            break;
+        }
+    }while(choix != 0);
+
+    
+}
+
+void totalmembers(){
+    printf("Total Players in team are %d",countPlayers);
+    return;
+}
+void averageage(){
+    int sum = 0;
+    for(int i = 0 ; i < countPlayers ; i++){
+        sum += players[i].age;
+    }
+
+    printf("Average of age in team : %d",sum/countPlayers);
 }
