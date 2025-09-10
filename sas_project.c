@@ -23,7 +23,6 @@ void showPlayers();
 void addPlayerMainMenu();
 void addmorePlayers();
 void showPlayersMenu();
-void showpAlphabete();
 void triwithage();
 void triwithposte();
 void search(int number);
@@ -41,6 +40,8 @@ void totalmembers();
 void averageage();
 void biggerbuts();
 void lowertobigger();
+void showPlayersWithMoreGoals(); 
+
 int main()
 {
     int choix;
@@ -52,7 +53,7 @@ int main()
         printf("3. Search Player\n");
         printf("4. Edit Player\n");
         printf("5. Delete Player\n");
-        printf("6.Statistique\n");
+        printf("6. Statistiques\n");
         printf("0. Quit\n");
         printf("Choose: ");
         scanf("%d", &choix);
@@ -87,6 +88,7 @@ int main()
     } while (choix != 0);
     return 0;
 }
+
 void addPlayerMainMenu()
 {
     system("cls");
@@ -94,9 +96,9 @@ void addPlayerMainMenu()
     int choix;
     do
     {
-        printf("1.Add 1 player\n");
-        printf("2.Add More than 1 Player\n");
-        printf("0.Go Back To MainMenu\n");
+        printf("1. Add 1 player\n");
+        printf("2. Add More than 1 Player\n");
+        printf("0. Go Back To MainMenu\n");
         printf("Choose: ");
         scanf("%d", &choix);
 
@@ -119,6 +121,7 @@ void addPlayerMainMenu()
 
     } while (choix != 0);
 }
+
 void addPlayer()
 {
     int random;
@@ -164,66 +167,6 @@ void addPlayer()
     system("pause");
     system("cls");
     main();
-}
-
-void showPlayersMenu()
-{
-
-    if (countPlayers == 0)
-    {
-        printf("No players added yet!\n");
-        return;
-    }
-    int choix;
-
-    do
-    {
-        printf("========== SHOW PLAYERS ============\n");
-        printf("1.in Alphabete order\n");
-        printf("2.in Players AGE\n");
-        printf("3.Show Players with Poste\n");
-        printf("4.Back to Main Menu\n");
-        printf("Choose : ");
-        scanf("%d", &choix);
-
-        switch (choix)
-        {
-        case 1:
-            triwithname();
-            break;
-        case 2:
-            triwithage();
-            break;
-        case 3:
-            triwithposte();
-            break;
-        case 4:
-            main();
-            break;
-        default:
-            printf("invalid Choice\n");
-        }
-    } while (choix != 0);
-}
-void showPlayers()
-{
-
-    if (countPlayers == 0)
-    {
-        printf("No players added yet!\n");
-        return;
-    }
-
-    printf("=== LIST OF PLAYERS ===\n");
-    for (int i = 0; i < countPlayers; i++)
-    {
-        printf("ID: %d | %s %s | Age: %d | Shirt: %d | Poste: %s | Goals: %d\n",
-               players[i].id, players[i].firstname, players[i].lastname,
-               players[i].age, players[i].numeroMaillot, players[i].poste, players[i].buts);
-    }
-    printf("========================\n");
-    system("pause");
-    system("cls");
 }
 
 void addmorePlayers()
@@ -278,14 +221,67 @@ void addmorePlayers()
     main();
 }
 
-void triwithage()
+void showPlayers()
 {
     if (countPlayers == 0)
     {
-        printf("No Player\n");
+        printf("No players added yet!\n");
         return;
     }
 
+    printf("=== LIST OF PLAYERS ===\n");
+    for (int i = 0; i < countPlayers; i++)
+    {
+        printf("ID: %d | %s %s | Age: %d | Shirt: %d | Poste: %s | Goals: %d\n",
+               players[i].id, players[i].firstname, players[i].lastname,
+               players[i].age, players[i].numeroMaillot, players[i].poste, players[i].buts);
+    }
+    printf("========================\n");
+    system("pause");
+    system("cls");
+}
+
+void showPlayersMenu()
+{
+    if (countPlayers == 0)
+    {
+        printf("No players added yet!\n");
+        return;
+    }
+    int choix;
+
+    do
+    {
+        printf("========== SHOW PLAYERS ============\n");
+        printf("1. Alphabetical order (Lastname)\n");
+        printf("2. By Age\n");
+        printf("3. By Poste\n");
+        printf("4. Back to Main Menu\n");
+        printf("Choose : ");
+        scanf("%d", &choix);
+
+        switch (choix)
+        {
+        case 1:
+            triwithname();
+            break;
+        case 2:
+            triwithage();
+            break;
+        case 3:
+            triwithposte();
+            break;
+        case 4:
+            main();
+            break;
+        default:
+            printf("Invalid Choice\n");
+        }
+    } while (choix != 0);
+}
+
+void triwithage()
+{
     for (int i = 0; i < countPlayers - 1; i++)
     {
         for (int j = i + 1; j < countPlayers; j++)
@@ -298,18 +294,11 @@ void triwithage()
             }
         }
     }
-
     showPlayers();
 }
 
 void triwithname()
 {
-    if (countPlayers == 0)
-    {
-        printf("No Player\n");
-        return;
-    }
-
     for (int i = 0; i < countPlayers - 1; i++)
     {
         for (int j = i + 1; j < countPlayers; j++)
@@ -322,17 +311,11 @@ void triwithname()
             }
         }
     }
-
     showPlayers();
 }
 
 void triwithposte()
 {
-    if (countPlayers == 0)
-    {
-        printf("No Player\n");
-        return;
-    }
     for (int i = 0; i < countPlayers - 1; i++)
     {
         for (int j = i + 1; j < countPlayers; j++)
@@ -345,7 +328,6 @@ void triwithposte()
             }
         }
     }
-
     showPlayers();
 }
 
@@ -379,11 +361,6 @@ void search(int number)
 void searchwithid(int number)
 {
     int idsearch;
-    if (countPlayers == 0)
-    {
-        printf("No Player\n");
-        return;
-    }
     printf("Give me ID: ");
     scanf(" %d", &idsearch);
     bool found = false;
@@ -398,11 +375,10 @@ void searchwithid(int number)
                    players[i].age, players[i].numeroMaillot, players[i].poste, players[i].buts);
 
             if (number == 2)
-
             {
                 do
                 {
-                    printf("1.Edit Player\n2. Back To MainMenu\nChoose: ");
+                    printf("1. Edit Player\n2. Back To MainMenu\nChoose: ");
                     scanf("%d", &choix);
 
                     switch (choix)
@@ -443,11 +419,9 @@ void searchwithid(int number)
                     }
                 } while (choix != 0);
             }
-
             found = true;
         }
     }
-
     if (!found)
     {
         printf("Not Found\n");
@@ -456,15 +430,9 @@ void searchwithid(int number)
 
 void searchwithlastname(int number)
 {
-    int idsearch;
+    char namesearch[500];
     int choix;
     bool found = false;
-    if (countPlayers == 0)
-    {
-        printf("No Player\n");
-        return;
-    }
-    char namesearch[500];
     printf("Enter a Last name of player you want to search for : ");
     scanf("%s", namesearch);
 
@@ -480,7 +448,7 @@ void searchwithlastname(int number)
             {
                 do
                 {
-                    printf("1.Edit Player\n2. Back To MainMenu\nChoose: ");
+                    printf("1. Edit Player\n2. Back To MainMenu\nChoose: ");
                     scanf("%d", &choix);
 
                     switch (choix)
@@ -520,7 +488,6 @@ void searchwithlastname(int number)
                     }
                 } while (choix != 0);
             }
-
             found = true;
             break;
         }
@@ -536,10 +503,9 @@ void modifie(int i)
     system("cls");
     printf("===== EDIT %s %s DATA =========\n", players[i].firstname, players[i].lastname);
     int choix;
-    getchar();
     do
     {
-        printf("1.Edit Player Poste\n2. Edit Age\n3. Edit Buts\n4.Go Back to MainMenu\nChoose : ");
+        printf("1. Edit Player Poste\n2. Edit Age\n3. Edit Goals\n4. Go Back to MainMenu\nChoose : ");
         scanf("%d", &choix);
 
         switch (choix)
@@ -556,9 +522,8 @@ void modifie(int i)
         case 4:
             main();
             break;
-
         default:
-            printf("Invalide Choice\n");
+            printf("Invalid Choice\n");
             break;
         }
     } while (choix != 0);
@@ -566,51 +531,33 @@ void modifie(int i)
 
 void modfieposte(int i)
 {
-    system("cls");
     char newposte[500];
-    printf("===== EDIT %s %s POSTE =========\n", players[i].firstname, players[i].lastname);
     printf("Enter new Poste for %s : ", players[i].lastname);
-    scanf("%s", &newposte);
+    scanf("%s", newposte);
     strcpy(players[i].poste, newposte);
-
     printf("Player Poste Updated Successfully....\n");
-    printf("New Poste is : %s\n", players[i].poste);
 }
 
 void modifieage(int i)
 {
-    system("cls");
-
     int newage;
-    printf("===== EDIT %s %s AGE =========\n", players[i].firstname, players[i].lastname);
     printf("Enter new age for %s : ", players[i].lastname);
     scanf("%d", &newage);
     players[i].age = newage;
-
-    printf("Player Poste Updated Successfully....\n");
-    printf("New Poste is : %d\n", players[i].age);
+    printf("Player Age Updated Successfully....\n");
 }
 
 void modifiebuts(int i)
 {
-    system("cls");
-
     int newbuts;
-    printf("===== EDIT %s %s AGE =========\n", players[i].firstname, players[i].lastname);
-    printf("Enter new buts for %s : ", players[i].lastname);
+    printf("Enter new goals for %s : ", players[i].lastname);
     scanf("%d", &newbuts);
     players[i].buts = newbuts;
-
-    printf("Player Poste Updated Successfully....\n");
-    printf("New Poste is : %d\n", players[i].age);
+    printf("Player Goals Updated Successfully....\n");
 }
 
 int checkrandom(int random)
 {
-    if (countPlayers == 0)
-    {
-        return 0;
-    }
     for (int i = 0; i < countPlayers; i++)
     {
         if (random == players[i].id)
@@ -618,115 +565,165 @@ int checkrandom(int random)
             return 1;
         }
     }
-
     return 0;
 }
 
 void delete(int i)
 {
-    for (int i = i; i < countPlayers; i++)
+    for (int j = i; j < countPlayers - 1; j++)
     {
-        players[i] = players[i + 1];
+        players[j] = players[j + 1];
     }
-
     countPlayers--;
-
     printf("Deleted Successfully\n");
-
     main();
 }
 
-
-void statistique(){
+void statistique()
+{
     system("cls");
-    if(countPlayers == 0){
+    if (countPlayers == 0)
+    {
         printf("\nNo Player FOUND\n\n");
         return;
     }
 
     int choix;
 
-    do{
-        printf("1.Total Team Members\n2.Show Average Age\n3.Buts More than\n4.Best Player in Buts\n5.From Lower Age to High Age\n0.Back To Main Menu\nChoose: ");
-        scanf("%d",&choix);
-        
-        switch(choix){
-            case 1:
+    do
+    {
+        printf("========== STATISTIQUES ============\n");
+        printf("1. Total Team Members\n");
+        printf("2. Show Average Age\n");
+        printf("3. Players with more than X goals\n");
+        printf("4. Best Player in Goals\n");
+        printf("5. Youngest and Oldest Player\n");
+        printf("0. Back To Main Menu\n");
+        printf("Choose: ");
+        scanf("%d", &choix);
+
+        switch (choix)
+        {
+        case 1:
             totalmembers();
             break;
-            case 2:
+        case 2:
             averageage();
             break;
-            case 3:
+        case 3:
+            showPlayersWithMoreGoals();
+            break;
+        case 4:
             biggerbuts();
             break;
-            case 4:
+        case 5:
             lowertobigger();
             break;
-            default:printf("Invalide Input\n\n");break;
+        case 0:
+            main();
+            break;
+        default:
+            printf("Invalid Input\n\n");
+            break;
         }
-    }while(choix != 0);
-
-    
+    } while (choix != 0);
 }
 
-void totalmembers(){
-    printf("\n\nTotal Players in team are %d\n\n",countPlayers);
+void totalmembers()
+{
+    printf("\n\nTotal Players in team are %d\n\n", countPlayers);
     system("pause");
     system("cls");
-    return;
 }
-void averageage(){
 
+void averageage()
+{
     int sum = 0;
-    for(int i = 0 ; i < countPlayers ; i++){
+    for (int i = 0; i < countPlayers; i++)
+    {
         sum += players[i].age;
     }
-
-    printf("Average of age in team : %d\n\n",sum/countPlayers);
-
+    printf("Average of age in team : %d\n\n", sum / countPlayers);
     system("pause");
-        system("cls");
-    return;
+    system("cls");
 }
 
-void biggerbuts(){
-        int bigger = players[0].buts;
-        int save = 0;
-    for(int i = 0 ; i < countPlayers ; i++){
-        if(bigger < players[i].buts){
+void biggerbuts()
+{
+    int bigger = players[0].buts;
+    int save = 0;
+    for (int i = 0; i < countPlayers; i++)
+    {
+        if (bigger < players[i].buts)
+        {
             bigger = players[i].buts;
             save = i;
         }
     }
-
-    printf("\nThe Max Buts is %d scored by %s %s\n\n",players[save].buts,players[save].firstname,players[save].lastname);
+    printf("\nThe Max Goals is %d scored by %s %s\n\n", players[save].buts, players[save].firstname, players[save].lastname);
     system("pause");
-        system("cls");
-    return;
+    system("cls");
 }
 
-void lowertobigger(){
+void lowertobigger()
+{
     int small = players[0].age;
     int bigger = players[0].age;
-    int save1;
-    int save2;
+    int save1 = 0;
+    int save2 = 0;
 
-    for(int i = 0 ; i < countPlayers ; i++){
-        if(bigger < players[i].age){
+    for (int i = 0; i < countPlayers; i++)
+    {
+        if (bigger < players[i].age)
+        {
             bigger = players[i].age;
             save1 = i;
         }
-        else if(small > players[i].age){
+        if (small > players[i].age)
+        {
             small = players[i].age;
             save2 = i;
         }
     }
-        printf("\nThe Oldest Player is %s %s with %d \n\n",players[save1].firstname,players[save1].lastname,players[save1].age);
-
-        //printf("\nThe small Player is %s %s with %d \n\n",players[save2].firstname,players[save2].lastname,players[save2].age);
-
+    printf("\nThe Oldest Player is %s %s with %d years \n", players[save1].firstname, players[save1].lastname, players[save1].age);
+    printf("\nThe Youngest Player is %s %s with %d years \n", players[save2].firstname, players[save2].lastname, players[save2].age);
+    printf("\n\n");
     system("pause");
-        system("cls");
-    return;
+    system("cls");
+}
+
+
+void showPlayersWithMoreGoals()
+{
+    if (countPlayers == 0)
+    {
+        printf("\nNo players in the team!\n\n");
+        return;
+    }
+
+    int x;
+    printf("Enter the minimum number of goals: ");
+    scanf("%d", &x);
+
+    bool found = false;
+    printf("\n=== Players with more than %d goals ===\n", x);
+    for (int i = 0; i < countPlayers; i++)
+    {
+        if (players[i].buts > x)
+        {
+            printf("ID: %d | %s %s | Age: %d | Shirt: %d | Poste: %s | Goals: %d\n",
+                   players[i].id, players[i].firstname, players[i].lastname,
+                   players[i].age, players[i].numeroMaillot, players[i].poste, players[i].buts);
+            found = true;
+        }
+    }
+
+    if (!found)
+    {
+        printf("No player has scored more than %d goals.\n", x);
+    }
+
+    printf("=======================================\n\n");
+    system("pause");
+    system("cls");
 }
