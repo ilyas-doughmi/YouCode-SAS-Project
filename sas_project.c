@@ -38,6 +38,9 @@ int checkrandom(int random);
 void delete(int i);
 void statistique();
 void totalmembers();
+void averageage();
+void biggerbuts();
+void lowertobigger();
 int main()
 {
     int choix;
@@ -635,6 +638,11 @@ void delete(int i)
 
 
 void statistique(){
+    system("cls");
+    if(countPlayers == 0){
+        printf("\nNo Player FOUND\n\n");
+        return;
+    }
 
     int choix;
 
@@ -649,6 +657,13 @@ void statistique(){
             case 2:
             averageage();
             break;
+            case 3:
+            biggerbuts();
+            break;
+            case 4:
+            lowertobigger();
+            break;
+            default:printf("Invalide Input\n\n");break;
         }
     }while(choix != 0);
 
@@ -656,14 +671,62 @@ void statistique(){
 }
 
 void totalmembers(){
-    printf("Total Players in team are %d",countPlayers);
+    printf("\n\nTotal Players in team are %d\n\n",countPlayers);
+    system("pause");
+    system("cls");
     return;
 }
 void averageage(){
+
     int sum = 0;
     for(int i = 0 ; i < countPlayers ; i++){
         sum += players[i].age;
     }
 
-    printf("Average of age in team : %d",sum/countPlayers);
+    printf("Average of age in team : %d\n\n",sum/countPlayers);
+
+    system("pause");
+        system("cls");
+    return;
+}
+
+void biggerbuts(){
+        int bigger = players[0].buts;
+        int save = 0;
+    for(int i = 0 ; i < countPlayers ; i++){
+        if(bigger < players[i].buts){
+            bigger = players[i].buts;
+            save = i;
+        }
+    }
+
+    printf("\nThe Max Buts is %d scored by %s %s\n\n",players[save].buts,players[save].firstname,players[save].lastname);
+    system("pause");
+        system("cls");
+    return;
+}
+
+void lowertobigger(){
+    int small = players[0].age;
+    int bigger = players[0].age;
+    int save1;
+    int save2;
+
+    for(int i = 0 ; i < countPlayers ; i++){
+        if(bigger < players[i].age){
+            bigger = players[i].age;
+            save1 = i;
+        }
+        else if(small > players[i].age){
+            small = players[i].age;
+            save2 = i;
+        }
+    }
+        printf("\nThe Oldest Player is %s %s with %d \n\n",players[save1].firstname,players[save1].lastname,players[save1].age);
+
+        //printf("\nThe small Player is %s %s with %d \n\n",players[save2].firstname,players[save2].lastname,players[save2].age);
+
+    system("pause");
+        system("cls");
+    return;
 }
