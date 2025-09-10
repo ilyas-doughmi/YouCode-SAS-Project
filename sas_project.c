@@ -2,7 +2,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include <stdbool.h>
-
+#include <time.h>
 typedef struct
 {
     int id;
@@ -25,14 +25,16 @@ void showPlayersMenu();
 void showpAlphabete();
 void triwithage();
 void triwithposte();
-void search();
-void searchwithlastname();
-void searchwithid();
+void search(int number);
+void searchwithlastname(int number);
+void searchwithid(int number);
 void triwithname();
 void modifie(int i);
 void modfieposte(int i);
 void modifieage(int i);
-void modifiebuts(int i );
+void modifiebuts(int i);
+int checkrandom(int random);
+
 int main()
 {
     int choix;
@@ -42,6 +44,8 @@ int main()
         printf("1. Add new player\n");
         printf("2. Show all players\n");
         printf("3. Search Player\n");
+        printf("4. Edit Player\n");
+        printf("5. Delete Player\n");
         printf("0. Quit\n");
         printf("Choose: ");
         scanf("%d", &choix);
@@ -55,7 +59,13 @@ int main()
             showPlayersMenu();
             break;
         case 3:
-            search();
+            search(1);
+            break;
+        case 4:
+            search(2);
+            break;
+        case 5:
+            search(3);
             break;
         case 0:
             printf("Bye!\n");
@@ -101,6 +111,7 @@ void addPlayerMainMenu()
 }
 void addPlayer()
 {
+    int random;
     system("cls");
     printf("=== ADDING PLAYER ===\n");
 
@@ -122,7 +133,13 @@ void addPlayer()
     printf("Enter goals: ");
     scanf("%d", &players[countPlayers].buts);
 
-    players[countPlayers].id = countPlayers + 1;
+    srand(time(NULL));
+    do
+    {
+        random = rand() % 99999 + 10000;
+    } while (checkrandom(random) != 0);
+
+    players[countPlayers].id = random;
 
     printf("\n=== Player Added Successfully ===\n");
     printf("ID: %d\n", players[countPlayers].id);
@@ -204,6 +221,7 @@ void addmorePlayers()
     int times;
     printf("How many players you want to enter : ");
     scanf("%d", &times);
+    int random;
     for (int i = 0; i < times; i++)
     {
         system("cls");
@@ -226,8 +244,13 @@ void addmorePlayers()
 
         printf("Enter goals: ");
         scanf("%d", &players[countPlayers].buts);
+        srand(time(NULL));
+        do
+        {
+            random = rand() % 99999 + 10000;
+        } while (checkrandom(random) != 0);
 
-        players[countPlayers].id = countPlayers + 1;
+        players[countPlayers].id = random;
 
         printf("\n=== Player Added Successfully ===\n");
         printf("ID: %d\n", players[countPlayers].id);
@@ -316,7 +339,7 @@ void triwithposte()
     showPlayers();
 }
 
-void search()
+void search(int number)
 {
     int choix;
     printf("1. Search with ID\n");
@@ -326,10 +349,10 @@ void search()
     switch (choix)
     {
     case 1:
-        searchwithid();
+        searchwithid(number);
         break;
     case 2:
-        searchwithlastname();
+        searchwithlastname(number);
         break;
     default:
         printf("Invalid Choice\n");
@@ -337,7 +360,7 @@ void search()
     }
 }
 
-void searchwithid()
+void searchwithid(int number)
 {
     int idsearch;
     if (countPlayers == 0)
@@ -358,24 +381,53 @@ void searchwithid()
                    players[i].id, players[i].firstname, players[i].lastname,
                    players[i].age, players[i].numeroMaillot, players[i].poste, players[i].buts);
 
-            do
-            {
-                printf("1.Edit Player\n2. Back To MainMenu\nChoose: ");
-                scanf("%d", &choix);
+            if (number == 2)
 
-                switch (choix)
+            {
+                do
                 {
-                case 1:
-                    modifie(i);
-                    break;
-                case 2:
-                    main();
-                    break;
-                default:
-                    printf("Invalid Choice\n");
-                    break;
-                }
-            } while (choix != 0);
+                    printf("1.Edit Player\n2. Back To MainMenu\nChoose: ");
+                    scanf("%d", &choix);
+
+                    switch (choix)
+                    {
+                    case 1:
+                        modifie(i);
+                        break;
+                    case 2:
+                        main();
+                        break;
+                    default:
+                        printf("Invalid Choice\n");
+                        break;
+                    }
+                } while (choix != 0);
+            }
+
+            if (number == 3)
+            {
+                do
+                {
+                    printf("Do you want to delete this player : \n");
+                    printf("1. DELETE\n");
+                    printf("2. RETURN TO MAIN MENU\n");
+                    scanf("%d", &choix);
+
+                    switch (choix)
+                    {
+                    case 1:
+                        delete(i);
+                        break;
+                    case 2:
+                        main();
+                        break;
+                    default:
+                        printf("invalid Choice\n");
+                        break;
+                    }
+                } while (choix != 0);
+            }
+
             found = true;
         }
     }
@@ -386,7 +438,7 @@ void searchwithid()
     }
 }
 
-void searchwithlastname()
+void searchwithlastname(int number)
 {
     int idsearch;
     int choix;
@@ -408,25 +460,28 @@ void searchwithlastname()
             printf("ID: %d | %s %s | Age: %d | Shirt: %d | Poste: %s | Goals: %d\n",
                    players[i].id, players[i].firstname, players[i].lastname,
                    players[i].age, players[i].numeroMaillot, players[i].poste, players[i].buts);
-
-            do
+            if (number == 2)
             {
-                printf("1.Edit Player\n2. Back To MainMenu\nChoose: ");
-                scanf("%d", &choix);
-
-                switch (choix)
+                do
                 {
-                case 1:
-                    modifie(i);
-                    break;
-                case 2:
-                    main();
-                    break;
-                default:
-                    printf("Invalid Choice\n");
-                    break;
-                }
-            } while (choix != 0);
+                    printf("1.Edit Player\n2. Back To MainMenu\nChoose: ");
+                    scanf("%d", &choix);
+
+                    switch (choix)
+                    {
+                    case 1:
+                        modifie(i);
+                        break;
+                    case 2:
+                        main();
+                        break;
+                    default:
+                        printf("Invalid Choice\n");
+                        break;
+                    }
+                } while (choix != 0);
+            }
+
             found = true;
             break;
         }
@@ -497,7 +552,8 @@ void modifieage(int i)
     printf("New Poste is : %d\n", players[i].age);
 }
 
-void modifiebuts(int i ){
+void modifiebuts(int i)
+{
     system("cls");
 
     int newbuts;
@@ -508,4 +564,28 @@ void modifiebuts(int i ){
 
     printf("Player Poste Updated Successfully....\n");
     printf("New Poste is : %d\n", players[i].age);
+}
+
+int checkrandom(int random)
+{
+    if (countPlayers == 0)
+    {
+        return 0;
+    }
+    for (int i = 0; i < countPlayers; i++)
+    {
+        if (random == players[i].id)
+        {
+            return 1;
+        }
+    }
+
+    return 0;
+}
+
+void delete(int i)
+{
+    for(int i = 0 ; i < countPlayers ; i++){
+        
+    }
 }
