@@ -166,9 +166,6 @@ void addPlayer()
         }
     } while (players[countPlayers].age < 0);
 
-    printf("Enter position (Defender, Midfielder, Forward, Goalkeeper): ");
-    scanf("%s", players[countPlayers].poste);
-
     do{ 
         printf("Enter position (Defender, Midfielder, Forward, Goalkeeper): ");
         scanf("%s", players[countPlayers].poste);
@@ -305,7 +302,7 @@ void showPlayers()
     printf("========== LIST OF PLAYERS ============\n");
     for (int i = 0; i < countPlayers; i++)
     {
-        printf("ID: %d | %s %s | Age: %d | Shirt: %d | Poste: %s | Goals: %d\n",
+        printf("ID: %d | %s %s | Age: %d | Shirt: %d | Poste: %s | Goals: %d\n\n",
                players[i].id, players[i].lastname, players[i].firstname,
                players[i].age, players[i].numeroMaillot, players[i].poste, players[i].buts);
     }
@@ -494,24 +491,22 @@ void searchwithid(int number)
 
             if (number == 2)
             {
-                do
-                {
-                    printf("1. Edit Player\n2. Back To MainMenu\nChoose: ");
-                    scanf("%d", &choix);
+                printf("1. Edit Player\n2. Back To MainMenu\nChoose: ");
+                scanf("%d", &choix);
 
-                    switch (choix)
-                    {
+                switch (choix)
+                {
                     case 1:
                         modifie(i);
                         break;
                     case 2:
-                        ;
-                        break;
+                        system("cls");
+                        return;
                     default:
                         printf("Invalid Choice\n");
+                        system("pause");
                         break;
-                    }
-                } while (choix != 0);
+                }
             }
 
             if (number == 3)
@@ -565,24 +560,22 @@ void searchwithlastname(int number)
                    players[i].age, players[i].numeroMaillot, players[i].poste, players[i].buts);
             if (number == 2)
             {
-                do
-                {
-                    printf("1. Edit Player\n2. Back To MainMenu\nChoose: ");
-                    scanf("%d", &choix);
+                printf("1. Edit Player\n2. Back To MainMenu\nChoose: ");
+                scanf("%d", &choix);
 
-                    switch (choix)
-                    {
+                switch (choix)
+                {
                     case 1:
                         modifie(i);
                         break;
                     case 2:
-                        ;
-                        break;
+                        system("cls");
+                        return;
                     default:
                         printf("Invalid Choice\n");
+                        system("pause");
                         break;
-                    }
-                } while (choix != 0);
+                }
             }
             if (number == 3)
             {
@@ -604,7 +597,7 @@ void searchwithlastname(int number)
                         printf("invalid Choice\n");
                         break;
                     }
-                } while (choix != 0);
+                } while (choix != 2);
             }
             found = true;
             break;
@@ -637,13 +630,14 @@ void modifie(int i)
         case 3:
             modifiebuts(i);
             break;
-        case 0:
-            break;
+        case 4:
+            system("cls");
+            return;
         default:
             printf("Invalid Choice\n");
             break;
         }
-    } while (choix != 0);
+    } while (choix != 4);
 }
 
 void modfieposte(int i)
@@ -658,8 +652,13 @@ void modfieposte(int i)
 void modifieage(int i)
 {
     int newage;
-    printf("Enter new age for %s : ", players[i].lastname);
-    scanf("%d", &newage);
+    do {
+        printf("Enter new age for %s : ", players[i].lastname);
+        scanf("%d", &newage);
+        if (newage < 0) {
+            printf("Age cannot be negative. Please try again.\n");
+        }
+    } while (newage < 0);
     players[i].age = newage;
     printf("Player Age Updated Successfully....\n");
 }
@@ -667,8 +666,13 @@ void modifieage(int i)
 void modifiebuts(int i)
 {
     int newbuts;
-    printf("Enter new goals for %s : ", players[i].lastname);
-    scanf("%d", &newbuts);
+    do {
+        printf("Enter new goals for %s : ", players[i].lastname);
+        scanf("%d", &newbuts);
+        if (newbuts < 0) {
+            printf("Goals cannot be negative. Please try again.\n");
+        }
+    } while (newbuts < 0);
     players[i].buts = newbuts;
     printf("Player Goals Updated Successfully....\n");
 }
