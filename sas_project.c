@@ -41,13 +41,14 @@ void totalmembers();
 void averageage();
 void biggerbuts();
 void lowertobigger();
-void showPlayersWithMoreGoals(); 
+void showPlayersWithMoreGoals();
 void mockdata();
 
 int main()
 {
-
-    if(setuped == false){
+    system("cls");
+    if (setuped == false)
+    {
         mockdata();
         setuped = true;
     }
@@ -88,12 +89,12 @@ int main()
         case 0:
             printf("Bye!\n");
             return 0;
+            break;
         default:
             printf("Invalid Choice!\n");
             break;
         }
     } while (choix != 0);
-    return 0;
 }
 
 void addPlayerMainMenu()
@@ -119,7 +120,7 @@ void addPlayerMainMenu()
             break;
         case 0:
             system("cls");
-            main();
+            ;
             break;
         default:
             printf("Invalid Choice!\n");
@@ -134,46 +135,56 @@ void addPlayer()
     int random;
     system("cls");
     printf("=== ADDING PLAYER ===\n");
-    
 
     printf("Enter player first name: ");
     scanf("%s", players[countPlayers].firstname);
-
 
     printf("Enter player last name: ");
     scanf("%s", players[countPlayers].lastname);
 
     printf("Enter shirt number: ");
     scanf("%d", &players[countPlayers].numeroMaillot);
-    do{
-        if(players[countPlayers].numeroMaillot < 0){
+    do
+    {
+        if (players[countPlayers].numeroMaillot < 0)
+        {
             printf("Shirt number cannot be negative. Please enter again: ");
             scanf("%d", &players[countPlayers].numeroMaillot);
         }
-    }while(players[countPlayers].numeroMaillot < 0);
+    } while (players[countPlayers].numeroMaillot < 0);
 
     printf("Enter age: ");
     scanf("%d", &players[countPlayers].age);
 
-    do{
-        if(players[countPlayers].age < 0){
+    do
+    {
+        if (players[countPlayers].age < 0)
+        {
             printf("Age cannot be negative. Please enter again: ");
             scanf("%d", &players[countPlayers].age);
         }
-    }while(players[countPlayers].age < 0);
+    } while (players[countPlayers].age < 0);
 
-    printf("Enter position: ");
+    printf("Enter position (Defender, Midfielder, Forward, Goalkeeper): ");
     scanf("%s", players[countPlayers].poste);
+
+    do{ 
+        printf("Enter position (Defender, Midfielder, Forward, Goalkeeper): ");
+        scanf("%s", players[countPlayers].poste);
+    } while(stricmp(players[countPlayers].poste,"Defender") != 0 && stricmp(players[countPlayers].poste,"Forward") != 0 && stricmp(players[countPlayers].poste,"Midfielder") != 0 &&stricmp(players[countPlayers].poste,"Goalkeeper") != 0);
+
 
     printf("Enter goals: ");
     scanf("%d", &players[countPlayers].buts);
 
-    do{
-        if(players[countPlayers].buts < 0){
+    do
+    {
+        if (players[countPlayers].buts < 0)
+        {
             printf("Goals cannot be negative. Please enter again: ");
             scanf("%d", &players[countPlayers].buts);
         }
-    }while(players[countPlayers].buts < 0);
+    } while (players[countPlayers].buts < 0);
 
     srand(time(NULL));
     do
@@ -195,7 +206,7 @@ void addPlayer()
     countPlayers++;
     system("pause");
     system("cls");
-    main();
+    ;
 }
 
 void addmorePlayers()
@@ -217,15 +228,46 @@ void addmorePlayers()
 
         printf("Enter shirt number: ");
         scanf("%d", &players[countPlayers].numeroMaillot);
+        do
+        {
+            if (players[countPlayers].numeroMaillot < 0)
+            {
+                printf("Shirt number cannot be negative. Please enter again: ");
+                scanf("%d", &players[countPlayers].numeroMaillot);
+            }
+        } while (players[countPlayers].numeroMaillot < 0);
 
         printf("Enter age: ");
         scanf("%d", &players[countPlayers].age);
+        do
+        {
+            if (players[countPlayers].age < 0)
+            {
+                printf("Age cannot be negative. Please enter again: ");
+                scanf("%d", &players[countPlayers].age);
+            }
+        } while (players[countPlayers].age < 0);
 
-        printf("Enter position: ");
-        scanf("%s", players[countPlayers].poste);
+        do
+        {
+            printf("Enter position (Defender, Midfielder, Forward, Goalkeeper): ");
+            scanf("%s", players[countPlayers].poste);
+        } while(stricmp(players[countPlayers].poste, "Defender") != 0 && 
+                stricmp(players[countPlayers].poste, "Forward") != 0 && 
+                stricmp(players[countPlayers].poste, "Midfielder") != 0 && 
+                stricmp(players[countPlayers].poste, "Goalkeeper") != 0);
 
         printf("Enter goals: ");
         scanf("%d", &players[countPlayers].buts);
+        do
+        {
+            if (players[countPlayers].buts < 0)
+            {
+                printf("Goals cannot be negative. Please enter again: ");
+                scanf("%d", &players[countPlayers].buts);
+            }
+        } while (players[countPlayers].buts < 0);
+
         srand(time(NULL));
         do
         {
@@ -247,7 +289,7 @@ void addmorePlayers()
         system("pause");
         system("cls");
     }
-    main();
+    ;
 }
 
 void showPlayers()
@@ -262,7 +304,7 @@ void showPlayers()
     for (int i = 0; i < countPlayers; i++)
     {
         printf("ID: %d | %s %s | Age: %d | Shirt: %d | Poste: %s | Goals: %d\n",
-               players[i].id,  players[i].lastname,players[i].firstname,
+               players[i].id, players[i].lastname, players[i].firstname,
                players[i].age, players[i].numeroMaillot, players[i].poste, players[i].buts);
     }
     printf("========================\n");
@@ -301,12 +343,11 @@ void showPlayersMenu()
             triwithposte();
             break;
         case 4:
-            main();
-            break;
+            return;
         default:
             printf("Invalid Choice\n");
         }
-    } while (choix != 0);
+    } while (choix != 4);
 }
 
 void triwithage()
@@ -345,33 +386,24 @@ void triwithname()
 
 void triwithposte()
 {
+    system("cls");
     char posterequested[50];
     printf("Enter Poste you want to filter by : ");
     scanf("%s", posterequested);
-    for (int i = 0; i < countPlayers - 1; i++){
-        if(strcmp(players[i].poste, posterequested) == 0){
+    for (int i = 0; i < countPlayers; i++)
+    {
+        if (stricmp(players[i].poste, posterequested) == 0)
+        {
             printf("ID: %d | %s %s | Age: %d | Shirt: %d | Poste: %s | Goals: %d\n",
-               players[i].id, players[i].firstname, players[i].lastname,
-               players[i].age, players[i].numeroMaillot, players[i].poste, players[i].buts);
+                   players[i].id, players[i].firstname, players[i].lastname,
+                   players[i].age, players[i].numeroMaillot, players[i].poste, players[i].buts);
         }
     }
-    // for (int i = 0; i < countPlayers - 1; i++)
-    // {
-    //     for (int j = i + 1; j < countPlayers; j++)
-    //     {
-    //         if (strcmp(players[i].poste, players[j].poste) > 0)
-    //         {
-    //             Player temp = players[i];
-    //             players[i] = players[j];
-    //             players[j] = temp;
-    //         }
-    //     }
-    // }
-    // showPlayers();
 }
 
 void search(int number)
 {
+    system("cls");
     if (countPlayers == 0)
     {
         printf("No Player\n");
@@ -399,6 +431,7 @@ void search(int number)
 
 void searchwithid(int number)
 {
+    system("cls");
     int idsearch;
     printf("Give me ID: ");
     scanf(" %d", &idsearch);
@@ -426,7 +459,7 @@ void searchwithid(int number)
                         modifie(i);
                         break;
                     case 2:
-                        main();
+                        ;
                         break;
                     default:
                         printf("Invalid Choice\n");
@@ -439,24 +472,24 @@ void searchwithid(int number)
             {
                 do
                 {
-                    printf("Are u sure you want to delete %s (1) Yes // (2) NO : \n");
+                    printf("Are u sure you want to delete %s (1) Yes // (2) NO : \n", players[i].firstname);
                     printf("1. DELETE\n");
                     printf("2. RETURN TO MAIN MENU\n");
+                    printf("Choose :");
                     scanf("%d", &choix);
 
                     switch (choix)
                     {
                     case 1:
                         delete(i);
-                        break;
+                        return;
                     case 2:
-                        main();
-                        break;
+                        return;
                     default:
                         printf("invalid Choice\n");
                         break;
                     }
-                } while (choix != 0);
+                } while (choix != 2);
             }
             found = true;
         }
@@ -469,6 +502,7 @@ void searchwithid(int number)
 
 void searchwithlastname(int number)
 {
+    system("cls");
     char namesearch[500];
     int choix;
     bool found = false;
@@ -477,7 +511,7 @@ void searchwithlastname(int number)
 
     for (int i = 0; i < countPlayers; i++)
     {
-        if (strcmp(namesearch, players[i].lastname) == 0)
+        if (stricmp(namesearch, players[i].lastname) == 0)
         {
             printf("Found it\n");
             printf("ID: %d | %s %s | Age: %d | Shirt: %d | Poste: %s | Goals: %d\n",
@@ -496,7 +530,7 @@ void searchwithlastname(int number)
                         modifie(i);
                         break;
                     case 2:
-                        main();
+                        ;
                         break;
                     default:
                         printf("Invalid Choice\n");
@@ -517,10 +551,9 @@ void searchwithlastname(int number)
                     {
                     case 1:
                         delete(i);
-                        break;
+                        return;
                     case 2:
-                        main();
-                        break;
+                        return;
                     default:
                         printf("invalid Choice\n");
                         break;
@@ -558,8 +591,7 @@ void modifie(int i)
         case 3:
             modifiebuts(i);
             break;
-        case 4:
-            main();
+        case 0:
             break;
         default:
             printf("Invalid Choice\n");
@@ -615,7 +647,9 @@ void delete(int i)
     }
     countPlayers--;
     printf("Deleted Successfully\n");
-    main();
+    system("pause");
+    system("cls");
+    return;
 }
 
 void statistique()
@@ -659,7 +693,6 @@ void statistique()
             lowertobigger();
             break;
         case 0:
-            main();
             break;
         default:
             printf("Invalid Input\n\n");
@@ -731,7 +764,6 @@ void lowertobigger()
     system("cls");
 }
 
-
 void showPlayersWithMoreGoals()
 {
     if (countPlayers == 0)
@@ -767,20 +799,24 @@ void showPlayersWithMoreGoals()
     system("cls");
 }
 
-
-void mockdata() {
+void mockdata()
+{
     srand(time(NULL));
-    char *firstnames[] = {"Mustapha", "Ahmed", "Abdelmajid", "Salaheddine", "Badou",
-                          "Noureddine", "Youssef", "Hakim", "Achraf", "Walid"};
-    char *lastnames[]  = {"Hajji", "Faras", "Dolmy", "Bassir", "Zaki",
-                          "Naybet", "En-Nesyri", "Ziyech", "Hakimi", "Regragui"};
-    char *postes[]     = {"Midfielder", "Forward", "Midfielder", "Forward", "Goalkeeper",
-                          "Defender", "Forward", "Midfielder", "Defender", "Defender"};
-    int ages[]         = {52, 76, 66, 51, 64, 54, 27, 31, 25, 49};  
-    int shirts[]       = {8, 9, 10, 7, 1, 5, 9, 7, 2, 3};
-    int buts[]         = {50, 100, 30, 70, 0, 15, 40, 25, 10, 5};
+    char firstnames[10][50] = {
+        "Mustapha", "Ahmed", "Abdelmajid", "Salaheddine", "Badou",
+        "Noureddine", "Youssef", "Hakim", "Achraf", "Walid"};
+    char lastnames[10][50] = {
+        "Hajji", "Faras", "Dolmy", "Bassir", "Zaki",
+        "Naybet", "En-Nesyri", "Ziyech", "Hakimi", "Regragui"};
+    char postes[10][50] = {
+        "Midfielder", "Forward", "Midfielder", "Forward", "Goalkeeper",
+        "Defender", "Forward", "Midfielder", "Defender", "Defender"};
+    int ages[10] = {52, 76, 66, 51, 64, 54, 27, 31, 25, 49};
+    int shirts[10] = {8, 9, 10, 7, 1, 5, 9, 7, 2, 3};
+    int buts[10] = {50, 100, 30, 70, 0, 15, 40, 25, 10, 5};
 
-    for (int i = 0; i < 10; i++) {
+    for (int i = 0; i < 10; i++)
+    {
         strcpy(players[countPlayers].firstname, firstnames[i]);
         strcpy(players[countPlayers].lastname, lastnames[i]);
         strcpy(players[countPlayers].poste, postes[i]);
@@ -789,11 +825,17 @@ void mockdata() {
         players[countPlayers].buts = buts[i];
 
         int random;
-        do {
-            random = rand() % 99999 + 10000;  
+        do
+        {
+            random = rand() % 99999 + 10000;
         } while (checkrandom(random) != 0);
 
         players[countPlayers].id = random;
         countPlayers++;
     }
 }
+
+
+
+
+// FIN PROJECT
