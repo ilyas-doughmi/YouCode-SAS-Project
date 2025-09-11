@@ -134,24 +134,46 @@ void addPlayer()
     int random;
     system("cls");
     printf("=== ADDING PLAYER ===\n");
+    
 
     printf("Enter player first name: ");
     scanf("%s", players[countPlayers].firstname);
+
 
     printf("Enter player last name: ");
     scanf("%s", players[countPlayers].lastname);
 
     printf("Enter shirt number: ");
     scanf("%d", &players[countPlayers].numeroMaillot);
+    do{
+        if(players[countPlayers].numeroMaillot < 0){
+            printf("Shirt number cannot be negative. Please enter again: ");
+            scanf("%d", &players[countPlayers].numeroMaillot);
+        }
+    }while(players[countPlayers].numeroMaillot < 0);
 
     printf("Enter age: ");
     scanf("%d", &players[countPlayers].age);
+
+    do{
+        if(players[countPlayers].age < 0){
+            printf("Age cannot be negative. Please enter again: ");
+            scanf("%d", &players[countPlayers].age);
+        }
+    }while(players[countPlayers].age < 0);
 
     printf("Enter position: ");
     scanf("%s", players[countPlayers].poste);
 
     printf("Enter goals: ");
     scanf("%d", &players[countPlayers].buts);
+
+    do{
+        if(players[countPlayers].buts < 0){
+            printf("Goals cannot be negative. Please enter again: ");
+            scanf("%d", &players[countPlayers].buts);
+        }
+    }while(players[countPlayers].buts < 0);
 
     srand(time(NULL));
     do
@@ -323,19 +345,29 @@ void triwithname()
 
 void triwithposte()
 {
-    for (int i = 0; i < countPlayers - 1; i++)
-    {
-        for (int j = i + 1; j < countPlayers; j++)
-        {
-            if (strcmp(players[i].poste, players[j].poste) > 0)
-            {
-                Player temp = players[i];
-                players[i] = players[j];
-                players[j] = temp;
-            }
+    char posterequested[50];
+    printf("Enter Poste you want to filter by : ");
+    scanf("%s", posterequested);
+    for (int i = 0; i < countPlayers - 1; i++){
+        if(strcmp(players[i].poste, posterequested) == 0){
+            printf("ID: %d | %s %s | Age: %d | Shirt: %d | Poste: %s | Goals: %d\n",
+               players[i].id, players[i].firstname, players[i].lastname,
+               players[i].age, players[i].numeroMaillot, players[i].poste, players[i].buts);
         }
     }
-    showPlayers();
+    // for (int i = 0; i < countPlayers - 1; i++)
+    // {
+    //     for (int j = i + 1; j < countPlayers; j++)
+    //     {
+    //         if (strcmp(players[i].poste, players[j].poste) > 0)
+    //         {
+    //             Player temp = players[i];
+    //             players[i] = players[j];
+    //             players[j] = temp;
+    //         }
+    //     }
+    // }
+    // showPlayers();
 }
 
 void search(int number)
