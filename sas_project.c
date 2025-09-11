@@ -240,7 +240,7 @@ void showPlayers()
     for (int i = 0; i < countPlayers; i++)
     {
         printf("ID: %d | %s %s | Age: %d | Shirt: %d | Poste: %s | Goals: %d\n",
-               players[i].id, players[i].firstname, players[i].lastname,
+               players[i].id,  players[i].lastname,players[i].firstname,
                players[i].age, players[i].numeroMaillot, players[i].poste, players[i].buts);
     }
     printf("========================\n");
@@ -310,7 +310,7 @@ void triwithname()
     {
         for (int j = i + 1; j < countPlayers; j++)
         {
-            if (strcmp(players[i].lastname, players[j].lastname) > 0)
+            if (stricmp(players[i].lastname, players[j].lastname) > 0)
             {
                 Player temp = players[i];
                 players[i] = players[j];
@@ -407,7 +407,7 @@ void searchwithid(int number)
             {
                 do
                 {
-                    printf("Do you want to delete this player : \n");
+                    printf("Are u sure you want to delete %s (1) Yes // (2) NO : \n");
                     printf("1. DELETE\n");
                     printf("2. RETURN TO MAIN MENU\n");
                     scanf("%d", &choix);
@@ -734,7 +734,6 @@ void showPlayersWithMoreGoals()
     system("pause");
     system("cls");
 }
-
 
 
 void mockdata() {
